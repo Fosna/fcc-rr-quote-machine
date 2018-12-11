@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const QuoteBox = props => (
@@ -22,9 +22,14 @@ const QuoteBox = props => (
 );
 
 QuoteBox.propTypes = {
-  quote: PropTypes.string,
-  author: PropTypes.string,
-  nextQuote: PropTypes.func,
+  quote: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  nextQuote: PropTypes.func.isRequired,
+}
+
+QuoteBox.defaultProps = {
+  quote: '...',
+  author: '...',
 }
 
 export default QuoteBox;
