@@ -27,9 +27,4 @@ QuoteBox.propTypes = {
   nextQuote: PropTypes.func.isRequired,
 }
 
-QuoteBox.defaultProps = {
-  quote: '...',
-  author: '...',
-}
-
 export default QuoteBox;

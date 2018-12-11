@@ -30,6 +30,7 @@ class QuoteBoxContainer extends Component {
     
     const randQuote = this.state.quotes[randIndex];
 
+    // To check what's the new state.
     return new Promise((resolve, reject) => {
       try {
         this.setState({
@@ -45,7 +46,7 @@ class QuoteBoxContainer extends Component {
     });
   }
 
-  render = () => <QuoteBox 
+  render = () => <QuoteBox
       nextQuote={this.nextQuote}
       quote={this.state.current.quote}
       author={this.state.current.author}
