@@ -1,6 +1,8 @@
 
 # Quote Machine
 
+Live [github page](https://fosna.github.io/fcc-rr-quote-machine/).
+
 FreeCodeCamp project: 
 [Front End Libraries Projects - Build a Random Quote Machine](https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-random-quote-machine/)
 
