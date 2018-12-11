@@ -5,7 +5,10 @@ import './App.css';
 class App extends Component {
   render() {
     return (
+      <div id="wrapper">
         <QuoteBoxContainer />
+        <div className="footer"> by <a href="#">Fosna</a></div>
+      </div>
     );
   }
 }
