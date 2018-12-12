@@ -19,15 +19,10 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-    console.log(action);
-    console.log('CURRENT    STATE');
-    console.log(state);
-    let newState = state; 
-    
+
     switch(action.type) {
         case LOAD_QUOTES_SUCCESS:
-            console.log('cow');
-            const dog = Object.assign(
+            return Object.assign(
                 {}, 
                 state, 
                 { 
@@ -35,26 +30,18 @@ export default (state = defaultState, action) => {
                     current: nextQuote(action.quotes), 
                 }
             ); 
-            // console.log(dog);
-            console.debug(dog);
-            newState = dog;
-            break;
         case LOAD_QUOTES_FAILED:
             console.error(action.error);
-            newState = state;
-            break;
+            return state;
         case NEXT_QUOTE: 
-            newState = Object.assign({},
+            return Object.assign({},
                 state, 
-                { current: nextQuote(state.quotes), }
+                { 
+                    current: nextQuote(state.quotes), 
+                }
             );
-            break;
         default:
-            newState = state;
-            break;
+            return state;
     }
 
-    console.log('NEW    STATE');
-    console.log(newState);
-    return newState;
 };

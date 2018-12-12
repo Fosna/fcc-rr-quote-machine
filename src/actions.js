@@ -9,15 +9,11 @@ const getQuotes = () => axios.get('https://gist.githubusercontent.com/camperbot/
 
 export const LOAD_QUOTES = 'LOAD_QUOTES';
 export const loadQuotes = () => dispatch => {
-    console.log('ant');
     dispatch({
         type: LOAD_QUOTES,
     });
     getQuotes()
-        .then(res => {
-            console.log('bee');
-            dispatch(loadQuotesSuccess(res.data.quotes));
-        })
+        .then(res => dispatch(loadQuotesSuccess(res.data.quotes)))
         .catch(error => dispatch(loadQuotesFailed(error)));
 };
 

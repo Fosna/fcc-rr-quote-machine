@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import thunkMiddleware from 'redux-thunk'
+import { createLogger } from 'redux-logger';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import QuoteBoxContainer from './QuoteBoxContainer';
@@ -8,7 +9,10 @@ import './App.css';
 
 const store = createStore(
   quoteReducer, 
-  applyMiddleware(thunkMiddleware)
+  applyMiddleware(
+    thunkMiddleware, 
+    createLogger()
+  )
 );
 
 class App extends Component {
