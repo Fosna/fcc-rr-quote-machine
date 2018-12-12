@@ -6,17 +6,8 @@ import QuoteBoxContainer from './QuoteBoxContainer';
 import quoteReducer from './quoteReducer';
 import './App.css';
 
-const defaultState = {
-  quotes: [],
-  current: {
-      quote: '...',
-      author: 'unknown',
-  },
-};
-
 const store = createStore(
   quoteReducer, 
-  defaultState,
   applyMiddleware(thunkMiddleware)
 );
 
