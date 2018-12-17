@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import QuoteBoxContainer from './QuoteBoxContainer';
-import quoteReducer from './quoteReducerAlpha';
+import quoteReducer from './quoteReducer';
 import './App.css';
 
 const store = createStore(
