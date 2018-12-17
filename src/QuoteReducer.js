@@ -1,8 +1,11 @@
+import { handleActions } from 'redux-actions';
+/* eslint-disable no-unused-vars*/
 import { 
     NEXT_QUOTE, 
     LOAD_QUOTES_SUCCESS,
     LOAD_QUOTES_FAILED,
 } from "./actions";
+/* eslint-disable no-unused-vars*/
 
 const nextQuote = (quotes) => {
     const randIndex = Math.floor(Math.random() * Math.floor(quotes.length));
@@ -10,7 +13,7 @@ const nextQuote = (quotes) => {
     return randQuote;
 };
 
-const defaultState = {
+const initialState = {
     quotes: [],
     current: {
         quote: '...',
@@ -18,30 +21,29 @@ const defaultState = {
     },
 };
 
-export default (state = defaultState, action) => {
-
-    switch(action.type) {
-        case LOAD_QUOTES_SUCCESS:
-            return Object.assign(
-                {}, 
-                state, 
-                { 
-                    quotes: action.quotes,
-                    current: nextQuote(action.quotes), 
-                }
-            ); 
-        case LOAD_QUOTES_FAILED:
+const actionHandlers = {
+    LOAD_QUOTES_SUCCESS: (state, action) => 
+        Object.assign(
+            {}, 
+            state, 
+            { 
+                quotes: action.quotes,
+                current: nextQuote(action.quotes), 
+            }
+        ),
+    LOAD_QUOTES_FAILED: (state, action) => {
             console.error(action.error);
             return state;
-        case NEXT_QUOTE: 
-            return Object.assign({},
-                state, 
-                { 
-                    current: nextQuote(state.quotes), 
-                }
-            );
-        default:
-            return state;
-    }
-
+        },
+    NEXT_QUOTE: state => 
+        Object.assign({},
+            state, 
+            { 
+                current: nextQuote(state.quotes), 
+            }
+        ),
 };
+
+const reducer = handleActions(actionHandlers, initialState);
+export default reducer;
+
