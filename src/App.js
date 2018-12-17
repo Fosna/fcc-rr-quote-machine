@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger';
+import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import QuoteBoxContainer from './QuoteBoxContainer';
-import quoteReducer from './quoteReducer';
+import quoteReducer from './quoteReducerAlpha';
 import './App.css';
 
 const store = createStore(
   quoteReducer, 
   applyMiddleware(
     thunkMiddleware, 
-    createLogger()
+    logger
   )
 );
 
@@ -21,7 +21,7 @@ class App extends Component {
       <Provider store={store}>
         <div id="wrapper">
           <QuoteBoxContainer />
-          <div className="footer"> by <a href="#">Fosna</a></div>
+          <div className="footer"> by <a href="https://about.me/fosna">Fosna</a></div>
         </div>
       </Provider>
     );

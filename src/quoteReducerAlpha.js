@@ -1,13 +1,11 @@
 import { handleActions } from 'redux-actions';
-/* eslint-disable no-unused-vars*/
 import { 
-    NEXT_QUOTE, 
-    LOAD_QUOTES_SUCCESS,
-    LOAD_QUOTES_FAILED,
+    nextQuote, 
+    loadQuotesSuccess,
+    loadQuotesFailed,
 } from "./actions";
-/* eslint-disable no-unused-vars*/
 
-const nextQuote = (quotes) => {
+const getNextQuote = (quotes) => {
     const randIndex = Math.floor(Math.random() * Math.floor(quotes.length));
     const randQuote = { ...quotes[randIndex] } ;
     return randQuote;
@@ -22,24 +20,30 @@ const initialState = {
 };
 
 const actionHandlers = {
-    LOAD_QUOTES_SUCCESS: (state, action) => 
-        Object.assign(
+    [loadQuotesSuccess]: (state, { 
+        payload: { 
+            quotes,
+        },
+    }) => {
+        return Object.assign(
             {}, 
             state, 
             { 
-                quotes: action.quotes,
-                current: nextQuote(action.quotes), 
+                quotes: quotes,
+                current: getNextQuote(quotes), 
             }
-        ),
-    LOAD_QUOTES_FAILED: (state, action) => {
-            console.error(action.error);
+        )
+    }
+        ,
+    [loadQuotesFailed]: (state, { payload }) => {
+            console.error(payload);
             return state;
         },
-    NEXT_QUOTE: state => 
+    [nextQuote]: state => 
         Object.assign({},
             state, 
             { 
-                current: nextQuote(state.quotes), 
+                current: getNextQuote(state.quotes), 
             }
         ),
 };
