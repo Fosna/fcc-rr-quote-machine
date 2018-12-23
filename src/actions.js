@@ -1,27 +1,21 @@
 import axios from 'axios';
 import { createAction } from 'redux-actions';
+import { createActionThunk } from 'redux-thunk-actions';
+
+// CreateAction returns function. `toString` on that function returns action type.
+// CreateAction thunk is missing `toString` override. This function provides it.
+const createActionThunkWithType = (actionType, fn) => {
+    const actionCreator = createActionThunk(actionType, fn);
+    actionCreator.toString = () => actionType;
+    return actionCreator;
+};
 
 export const nextQuote = createAction('NEXT_QUOTE');
 
-const getQuotes = () => axios.get('https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json');
+const getQuotes = () => axios.get('https://gistTTT.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json');
+export const loadQuotes = createActionThunkWithType('LOAD_QUOTES', getQuotes);
 
-export const loadQuotesStart = createAction('LOAD_QUOTES_START');
+// Action type based on createActionThunk naming convention.
+export const loadQuotesSuceeded = `${loadQuotes.toString()}_SUCCEEDED`;
 
-const loadQuotes = () => dispatch => {
-    dispatch(loadQuotesStart());
-    getQuotes()
-        .then(
-            res => dispatch(
-                loadQuotesSuccess({ 
-                    quotes: res.data.quotes,
-                })
-            ),
-            error => dispatch(loadQuotesFailed(error)
-        )
-    );
-};
-loadQuotes.toString = () => 'LOAD_QUOTES';
-export { loadQuotes };
-
-export const loadQuotesSuccess = createAction('LOAD_QUOTES_SUCCESS');
-export const loadQuotesFailed = createAction('LOAD_QUOTES_FAILED');
+export const loadQuotesFailed = `${loadQuotes.toString()}_FAILED`;

@@ -1,13 +1,14 @@
 import { handleActions } from 'redux-actions';
 import { 
-    nextQuote, 
-    loadQuotesSuccess,
+    nextQuote,
+    loadQuotesSuceeded,
     loadQuotesFailed,
 } from "./actions";
 
 const getNextQuote = (quotes) => {
     const randIndex = Math.floor(Math.random() * Math.floor(quotes.length));
     const randQuote = { ...quotes[randIndex] } ;
+
     return randQuote;
 };
 
@@ -20,25 +21,6 @@ const initialState = {
 };
 
 const actionHandlers = {
-    [loadQuotesSuccess]: (state, { 
-        payload: { 
-            quotes,
-        },
-    }) => {
-        return Object.assign(
-            {}, 
-            state, 
-            { 
-                quotes: quotes,
-                current: getNextQuote(quotes), 
-            }
-        )
-    }
-        ,
-    [loadQuotesFailed]: (state, { payload }) => {
-            console.error(payload);
-            return state;
-        },
     [nextQuote]: state => 
         Object.assign({},
             state, 
@@ -46,6 +28,24 @@ const actionHandlers = {
                 current: getNextQuote(state.quotes), 
             }
         ),
+    [loadQuotesSuceeded]: (state, { 
+        payload: { 
+            data: { 
+                quotes 
+            }
+        }
+    }) => 
+        Object.assign({}, 
+            state,
+            {
+                current: getNextQuote(quotes),
+                quotes: quotes,
+            }
+        ),
+    [loadQuotesFailed]: (state, { payload }) => {
+        console.error(payload)
+        return state;
+    },
 };
 
 const reducer = handleActions(actionHandlers, initialState);
