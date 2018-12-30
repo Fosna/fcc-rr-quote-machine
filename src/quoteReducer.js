@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { 
     nextQuote,
-    loadQuotesSuceeded,
+    loadQuotesSucceeded,
     loadQuotesFailed,
 } from "./actions";
 import Immutable from 'seamless-immutable';
@@ -23,26 +23,20 @@ const initialState = Immutable.from({
 
 const actionHandlers = {
     [nextQuote]: state => 
-        Object.assign({},
-            state, 
-            { 
-                current: getNextQuote(state.quotes), 
-            }
-        ),
-    [loadQuotesSuceeded]: (state, { 
+        state.merge({ 
+            current: getNextQuote(state.quotes) 
+        }),
+    [loadQuotesSucceeded]: (state, { 
         payload: { 
             data: { 
                 quotes 
             }
         }
     }) => 
-        Object.assign({}, 
-            state,
-            {
-                current: getNextQuote(quotes),
-                quotes: quotes,
-            }
-        ),
+        state.merge({
+            current: getNextQuote(quotes),
+            quotes: quotes,
+        }),
     [loadQuotesFailed]: (state, { payload }) => {
         console.error(payload)
         return state;
