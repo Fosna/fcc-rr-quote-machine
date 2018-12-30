@@ -4,6 +4,7 @@ import {
     loadQuotesSuceeded,
     loadQuotesFailed,
 } from "./actions";
+import Immutable from 'seamless-immutable';
 
 const getNextQuote = (quotes) => {
     const randIndex = Math.floor(Math.random() * Math.floor(quotes.length));
@@ -12,13 +13,13 @@ const getNextQuote = (quotes) => {
     return randQuote;
 };
 
-const initialState = {
+const initialState = Immutable.from({
     quotes: [],
     current: {
         quote: '...',
         author: 'unknown',
     },
-};
+});
 
 const actionHandlers = {
     [nextQuote]: state => 
