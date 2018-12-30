@@ -16,6 +16,6 @@ const getQuotes = () => axios.get('https://gist.githubusercontent.com/camperbot/
 export const loadQuotes = createActionThunkWithType('LOAD_QUOTES', getQuotes);
 
 // Action type based on createActionThunk naming convention.
-export const loadQuotesSuceeded = `${loadQuotes.toString()}_SUCCEEDED`;
+export const loadQuotesSucceeded = `${loadQuotes.toString()}_SUCCEEDED`;
 
 export const loadQuotesFailed = `${loadQuotes.toString()}_FAILED`;
