@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { 
     nextQuote,
+    loadQuotesStarted,
     loadQuotesSucceeded,
     loadQuotesFailed,
 } from "./actions";
@@ -26,6 +27,13 @@ const actionHandlers = {
         state.merge({ 
             current: getNextQuote(state.quotes) 
         }),
+    [loadQuotesStarted]: state => 
+        state.merge({
+            current: {
+                quote: '...loading...',
+                author: 'loading...',
+            }
+        }),
     [loadQuotesSucceeded]: (state, { 
         payload: { 
             data: { 
@@ -38,8 +46,13 @@ const actionHandlers = {
             quotes: quotes,
         }),
     [loadQuotesFailed]: (state, { payload }) => {
-        console.error(payload)
-        return state;
+        console.error(payload);
+        return state.merge({ 
+            current: {
+                quote: 'Ups!',
+                author: 'An Error',
+            },
+        });
     },
 };
 
